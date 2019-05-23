@@ -11,7 +11,7 @@ Example playbook:
   become: true
 
   roles:
-    - role: nodejs
+    - role: geerlingguy.nodejs
       tags:
         - nodejs
     - role: homebridge
