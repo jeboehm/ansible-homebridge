@@ -1,0 +1,11 @@
+---
+homebridge_dir: /var/lib/homebridge
+homebridge_exec: /usr/local/lib/npm/bin/homebridge
+
+homebridge_name: Homebridge
+homebridge_username:
+homebridge_port: 51826
+homebridge_pin:
+
+homebridge_platforms: []
+homebridge_accessories: []

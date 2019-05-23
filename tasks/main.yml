@@ -1,0 +1,49 @@
+---
+
+- name: Add homebridge user
+  user:
+    name: homebridge
+    home: "{{ homebridge_dir }}"
+    createhome: true
+    system: true
+
+- name: Add requirements
+  apt:
+    pkg: libavahi-compat-libdnssd-dev
+    state: present
+
+- name: Add homebridge systemd unit
+  template:
+    src: homebridge.service.j2
+    dest: /etc/systemd/system/homebridge.service
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - restart homebridge
+
+- name: Add homebridge defaults
+  template:
+    src: homebridge.sh.j2
+    dest: /etc/default/homebridge
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - restart homebridge
+
+- name: Add homebridge configuration
+  template:
+    src: config.json.j2
+    dest: "{{ homebridge_dir }}/config.json"
+    owner: homebridge
+    group: homebridge
+    mode: 0644
+  notify:
+    - restart homebridge
+
+- name: Start homebridge
+  systemd:
+    name: homebridge
+    state: started
+    enabled: true
